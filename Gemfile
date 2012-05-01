@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
+gem "sinatra", :require => "sinatra/base"
 gem 'sequel'
 gem 'haml'
+gem 'json'
+
 
 group :development, :test do
   gem 'sqlite3'
