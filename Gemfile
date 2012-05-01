@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem "sinatra", :require => "sinatra/base"
+gem 'sinatra'
+gem 'will_paginate'
+gem 'sinatra/sequel'
 gem 'haml'
-gem 'will_paginate', '>= 3.0.pre'
-gem 'sequel'
-
+gem 'will_paginate', '~> 3.0'
 gem 'jquery-rails'
 
 group :development, :test do

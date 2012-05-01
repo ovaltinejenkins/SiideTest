@@ -1,0 +1,66 @@
+%script
+	$(document).ready(function() {
+	
+	var maxid = 0;
+	var minid = 0;
+	
+	$.ajax({
+	url: '/initial',
+	type: 'GET',
+	success: function(data) {
+	var response = JSON.parse(data);
+	$('#main').prepend(response.data);
+	maxid = response.maxId;
+	minid = response.minId;
+	if(!response.morePages)
+	{
+	$('#more').remove()
+	}
+	}
+	});
+	
+	function getNewerComments(){
+	$.ajax({
+	url: '/update',
+	type: 'POST',
+	data:{id:maxid},
+	success: function(data) {
+	var response = JSON.parse(data);
+	$('#main').prepend(response.data);
+	
+	maxid = response.maxId;
+	}
+	});	
+	}	
+
+
+	function getNewPage(){
+	$.ajax({
+	url: '/page',
+	type: 'POST',
+	data:{id:minid},
+	success: function(data) {
+	var response = JSON.parse(data);
+	minid = response.minId
+	if(!response.morePages)
+	{
+	$('#more').remove()
+	}
+	
+	$('#main').append(response.data);
+	}
+	});	
+	}
+
+	var refreshId = setInterval( function()
+	{
+	getNewerComments();
+	}, 5000);
+	$("#more").click(function () {
+	getNewPage();
+	});
+	})	
+
+%div#main
+	%div.span10
+		%button#more{:type => 'button'} More..

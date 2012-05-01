@@ -1,0 +1,12 @@
+-@blogposts.each do |post|
+	%div.span10.post
+		%h1
+			%a{:href => "/#{post.id}"} 
+				= post.title
+		%p
+			= post.id
+		%p 
+			= post.body
+		%p 
+			= post.posted
+		%a{:href => "/#{post.id}/edit"} Edit

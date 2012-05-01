@@ -1,34 +1,99 @@
 require 'sinatra'
-require 'sinatra/sequel'
-require_relative 'models/news'
-# see:
+require 'sequel'
+require 'rubygems'
+require 'json'
 
-unless DB.table_exists? :authors
-	DB.create_table :authors do
-	  primary_key :id
-	  String :name
+require_relative 'database.rb'
+require_relative 'models/blogpost.rb'	
+
+
+get '/all' do
+	@blogposts = BlogPost.order(:posted.desc)
+	haml :"blogposts/list"
+end
+ 
+get '/initial' do
+	@blogposts = BlogPost.order(:posted.desc).limit(10)
+	maxId = @blogposts.max(:id)
+	minId = @blogposts.min(:id)
+	morePages = !@blogposts.filter('id < ?',minId).count.zero?
+	{:data => (haml :"blogposts/list", :layout => false), :morePages => morePages, :maxId => maxId, :minId => minId, :content_type => 'application/json'}.to_json
+end
+
+post '/update' do
+	puts params[:id]
+	@blogposts = BlogPost.filter('id > ?',params[:id].to_i)
+	puts @blogposts.count
+	maxId = @blogposts.max(:id) ? @blogposts.max(:id) : params[:id]
+	{:data => (haml :"blogposts/list", :layout => false), :maxId => maxId, :content_type => 'application/json'}.to_json
+end
+
+post '/page' do
+	puts [params[:id]]
+	@blogposts = BlogPost.filter('id < ?',params[:id].to_i).order(:posted.desc).limit(10)
+	minId = @blogposts.min(:id)
+	morePages = !@blogposts.filter('id < ?',minId).count.zero?
+	puts morePages
+	{:data => (haml :"blogposts/list", :layout => false), :morePages => morePages, :minId => minId, :content_type => 'application/json'}.to_json
+end
+
+get '/index' do
+	haml :"blogposts/index"
+end
+
+get '/' do
+	redirect '/index'
+end
+
+get '/new' do
+	haml :"blogposts/new"
+end
+
+get '/:id/edit' do
+	@blogpost = BlogPost[params[:id]]
+	unless @blogpost.nil?
+		haml :"blogposts/edit", :layout => false
+	else
+		"...no"
 	end
 end
-authors = DB[:authors]
-# access the database within the context of an HTTP request
-get '/foos/new' do
-	authors.insert(:name => 'dick waters')
+
+put '/:id' do  
+  p = BlogPost[params[:id]]
+  p.title = params[:title]  
+  p.body = params[:body]
+  p.save  
+  redirect '/'  
+end  
+
+post '/new' do
+	p = BlogPost.new
+	p.title = params[:title]
+	p.body = params[:body]
+	p. posted = Time.now
+	p.save
+	redirect '/'
 end
 
 # or, using the model
-delete '/foos/:id' do
-  @foo = Foo[params[:id]]
-  @foo.delete
+get '/:id/delete' do
+	@blogpost = BlogPost[params[:id]]
+	haml :"blogposts/delete", :layout => false
 end
 
-# access the database within the context of an HTTP request
-get '/author/:id' do
-  @foo = authors.filter(:id => params[:id]).first
-	haml :index
+
+delete '/:id' do
+  p = BlogPost[params[:id]]
+  p.delete  
+  redirect '/'  
 end
 
-# or, using the model
-delete '/foos/:id' do
-  @foo = Foo[params[:id]]
-  @foo.delete
+get '/:id' do
+	@blogpost = BlogPost[params[:id]]
+	unless @blogpost.nil?
+
+		haml :"blogposts/show", :layout => false
+	else
+		"No post found with that id."
+	end
 end
