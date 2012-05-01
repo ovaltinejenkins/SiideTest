@@ -3,9 +3,16 @@ require 'sequel'
 require 'rubygems'
 require 'json'
 
-require_relative 'database.rb'
 require_relative 'models/blogpost.rb'	
 
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/development.db')
+
+DB.create_table? :blog_posts do
+    primary_key :id
+	string		:title
+    text        :body
+    timestamp   :posted, :null => false
+end
 
 get '/all' do
 	@blogposts = BlogPost.order(:posted.desc)

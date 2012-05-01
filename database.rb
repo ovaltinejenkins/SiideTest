@@ -1,8 +1,10 @@
 require 'sinatra'
-require 'sinatra/sequel'
+require 'sequel'
 
-migration "create blogposts table" do
-  database.create_table :blogposts do
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/development.db')
+
+Sequel.migration do
+  create_table :blogposts do
     primary_key :id
 	string		:title
     text        :body
@@ -10,9 +12,9 @@ migration "create blogposts table" do
   end
  end
  
-  migration "create blog_posts table and drop bad" do
-  database.drop_table :blogposts
-  database.create_table :blog_posts do
+Sequel.migration do
+  drop_table :blogposts
+  create_table :blog_posts do
     primary_key :id
 	string		:title
     text        :body
