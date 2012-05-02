@@ -30,7 +30,7 @@ Notes:
 	
 Issues:
 
- * One of the issues in working on this was my lack of knowledge of conventions and standards in the technologies.  I would assume that there are organizational things I have done that are incorrect and this has caused me some doubt, especially in the use of some of the routes.
+ * One of the issues in working on this was my lack of knowledge of conventions and standards in the technologies.  I would assume that there are organizational things I have done that are incorrect and this has caused me some doubt, especially in the use of some of the routes and paging.
  * There were also issues deploying to Heroku from Windows, and I had to switch to a Linux VM eventually.
 
 Time:
