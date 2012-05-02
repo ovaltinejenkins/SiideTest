@@ -35,11 +35,11 @@ Issues:
 
 Time:
 <table>
-	<tr><td>research</td><td>3 hours</td></tr>
-	<tr><td>writing functional code</td><td>4 hours</td></tr>
-	<tr><td>cleaning up/styling</td><td>1 hour</td></tr>
-	<tr><td>deploying</td><td>1.5 hours</td></tr>
-	<tr><td><b>total</b></td><td>9.5 hours</td></tr>
+	<tr><td>Research</td><td>3 hours</td></tr>
+	<tr><td>Functionality</td><td>4 hours</td></tr>
+	<tr><td>Layout/Styling</td><td>1 hour</td></tr>
+	<tr><td>Deployment</td><td>1.5 hours</td></tr>
+	<tr><td><b>Total</b></td><td>9.5 hours</td></tr>
 </table>
 
 
