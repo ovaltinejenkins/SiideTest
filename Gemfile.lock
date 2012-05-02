@@ -4,6 +4,7 @@ GEM
     haml (3.1.4)
     json (1.6.6)
     pg (0.13.2)
+    pg (0.13.2-x86-mingw32)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -13,10 +14,12 @@ GEM
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
     sqlite3 (1.3.6)
+    sqlite3 (1.3.6-x86-mingw32)
     tilt (1.3.3)
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   haml
