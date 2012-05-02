@@ -14,7 +14,7 @@
 	minid = response.minId;
 	if(!response.morePages)
 	{
-	$('#more').remove()
+	$('#pageButton').remove()
 	}
 	}
 	});
@@ -44,7 +44,7 @@
 	minid = response.minId
 	if(!response.morePages)
 	{
-	$('#more').remove()
+	$('#pageButton').remove()
 	}
 	
 	$('#main').append(response.data);
@@ -56,11 +56,14 @@
 	{
 	getNewerComments();
 	}, 5000);
-	$("#more").click(function () {
+	$("#pageButton").click(function () {
 	getNewPage();
 	});
 	})	
-
-%div#main
-	%div.span10
-		%button#more{:type => 'button'} More..
+%div
+	%a{:href => '/new'}
+		%button.more
+			New
+	#main.container-fluid
+		.span10
+			%button.more#pageButton{:type => 'button'} More..

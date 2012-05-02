@@ -9,8 +9,8 @@ DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/development.db')
 
 DB.create_table? :blog_posts do
     primary_key :id
-	string		:title
-    text        :body
+	String		:title
+    String        :body
     timestamp   :posted, :null => false
 end
 
@@ -59,7 +59,7 @@ end
 get '/:id/edit' do
 	@blogpost = BlogPost[params[:id]]
 	unless @blogpost.nil?
-		haml :"blogposts/edit", :layout => false
+		haml :"blogposts/edit"
 	else
 		"...no"
 	end
@@ -85,9 +85,8 @@ end
 # or, using the model
 get '/:id/delete' do
 	@blogpost = BlogPost[params[:id]]
-	haml :"blogposts/delete", :layout => false
+	haml :"blogposts/delete"
 end
-
 
 delete '/:id' do
   p = BlogPost[params[:id]]
@@ -99,7 +98,7 @@ get '/:id' do
 	@blogpost = BlogPost[params[:id]]
 	unless @blogpost.nil?
 
-		haml :"blogposts/show", :layout => false
+		haml :"blogposts/show"
 	else
 		"No post found with that id."
 	end

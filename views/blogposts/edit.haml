@@ -1,6 +1,12 @@
-%form#edit{:action => "/#{@blogpost.id}", :method => 'post'}
+%form{:action => "/#{@blogpost.id}", :method => 'post'}
 	%input{:type => 'hidden', :name => '_method', :value => 'put'}
-	%input{:type => 'text', :name => 'title', :value => "#{@blogpost.title}"}
-	%input{:type => 'text', :name => 'body', :value => "#{@blogpost.body}"}
-	%input{:type => 'submit'}
-%a{:href => "/#{@blogpost.id}/delete"} Delete
+	%label{:for => 'title'} Title
+	%input#title{:type => 'text', :name => 'title', :value=> "#{@blogpost.title}"}
+	%label{:for => 'body'} Body
+	%textarea#body{:cols => "200", :name => 'body', :rows => "5"}
+		=  @blogpost.body
+	%div
+		%input{:type => 'submit', :value => 'Update'}
+%form{:action => "/#{@blogpost.id}", :method => 'post'}
+	%input{:type => 'hidden', :name => '_method', :value => 'delete'}
+	%input{:type => 'submit', :value => 'Delete'}

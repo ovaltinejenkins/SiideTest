@@ -1,6 +1,8 @@
-%h1
-	= @blogpost.title
-%p 
-	= @blogpost.id
-%p
-	= @blogpost.body
+.row-fluid
+	.span6.post
+		%h2
+			= @blogpost.title
+		%p
+			= @blogpost.body
+		%p
+			=@blogpost.posted
