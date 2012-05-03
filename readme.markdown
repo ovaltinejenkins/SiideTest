@@ -42,4 +42,4 @@ Time:
 	<tr><td><b>Total</b></td><td>10.5 hours</td></tr>
 </table>
 
-[Running on Heroku](http://siidetest.heroku.com//index)
+[Running on Heroku](http://siidetest.heroku.com/index)
