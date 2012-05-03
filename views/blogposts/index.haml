@@ -60,10 +60,11 @@
 	getNewPage();
 	});
 	})	
-%div
-	%a{:href => '/new'}
-		%button.more
-			New
-	#main.container-fluid
-		.span10
-			%button.more#pageButton{:type => 'button'} More..
+.container-fluid
+	.row-fluid
+		%a{:href => '/new'}
+			%button.btn
+				New
+#main.container-fluid
+	.row-fluid
+		%button.btn#pageButton{:type => 'button'} More..
