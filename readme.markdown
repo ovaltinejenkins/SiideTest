@@ -42,7 +42,4 @@ Time:
 	<tr><td><b>Total</b></td><td>10.5 hours</td></tr>
 </table>
 
-
-To start server:
-bundle install
-rackup -p 3000 config.ru 
+[Running on Heroku](http://stark-window-8995.heroku.com/index)
