@@ -26,11 +26,11 @@ Application Requirements:
 Notes:
 
  * Database actions are through the Sequel model on the local sqlite database in development and Postgres on Heroku
- * Before this project, I had never used Sinatra or Sequel
+ * Before this project, I had never used Sinatra or Sequel, but enjoyed using them
 	
 Issues:
 
- * One of the issues in working on this was my lack of knowledge of conventions and standards in the technologies.  I would assume that there are organizational things I have done that are incorrect and this has caused me some doubt, especially in the use of some of the routes and paging.
+ * One of the issues in working on this was my lack of familiarity with the conventions and standards in the technologies.  I would assume that there are organizational things I have done that are incorrect, especially in the use of some of the routes and paging.
  * There were also issues deploying to Heroku from Windows, and I had to switch to a Linux VM eventually.
 
 Time:
