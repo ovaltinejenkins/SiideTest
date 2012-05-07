@@ -1,53 +1,32 @@
 %script
+	// this should really be moved to a different file so that you can structure it correctly
 	$(document).ready(function() {
-	
-	var maxid = 0;
-	var minid = 0;
-	
-	$.ajax({
-	url: '/initial',
-	type: 'GET',
-	success: function(data) {
-	var response = JSON.parse(data);
-	$('#main').prepend(response.data);
-	maxid = response.maxId;
-	minid = response.minId;
-	if(!response.morePages)
-	{
-	$('#pageButton').remove()
-	}
-	}
-	});
-	
+
+	var last_check = new Date();
+
 	function getNewerComments(){
 	$.ajax({
-	url: '/update',
-	type: 'POST',
-	data:{id:maxid},
+	url: '/',
+	type: 'GET',
+	data:{after:last_check, before: new Date()},
 	success: function(data) {
-	var response = JSON.parse(data);
-	$('#main').prepend(response.data);
-	
-	maxid = response.maxId;
+	last_check = new Date();
+	$('#main').prepend(data);
 	}
 	});	
 	}	
 
-
+	var page = 1;
 	function getNewPage(){
+	page++;
 	$.ajax({
-	url: '/page',
-	type: 'POST',
-	data:{id:minid},
+	url: '/',
+	type: 'GET',
+	data:{page:page},
 	success: function(data) {
-	var response = JSON.parse(data);
-	minid = response.minId
-	if(!response.morePages)
-	{
+
 	$('#pageButton').remove()
-	}
-	
-	$('#main').append(response.data);
+	$('#main').append(data);
 	}
 	});	
 	}
@@ -56,7 +35,7 @@
 	{
 	getNewerComments();
 	}, 5000);
-	$("#pageButton").click(function () {
+	$("#pageButton").live('click',function () {
 	getNewPage();
 	});
 	})	
@@ -66,5 +45,19 @@
 			%button.btn
 				New
 #main.container-fluid
-.row-fluid
-	%button.btn#pageButton{:type => 'button'} More..
+	-@blogposts.each do |post|
+		.row-fluid
+			.span6.post
+				%h2
+					%a{:href => "/#{post.id}"} 
+						= post.title
+				%p 
+					= post.body
+				%p 
+					= post.posted
+				%div
+					%a{:href => "/#{post.id}/edit"} Edit
+-if !@blogposts.next_page.nil?
+	.row-fluid
+		%button.btn#pageButton{:type => 'button'} More..
+

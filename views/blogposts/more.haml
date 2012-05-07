@@ -1,0 +1,17 @@
+
+-@blogposts.each do |post|
+	.row-fluid
+		.span6.post
+			%h2
+				%a{:href => "/#{post.id}"} 
+					= post.title
+			%p 
+				= post.body
+			%p 
+				= post.posted
+			%div
+				%a{:href => "/#{post.id}/edit"} Edit
+-if @blogposts.respond_to?(:next_page) && !@blogposts.next_page.nil?
+	.row-fluid
+		%button.btn#pageButton{:type => 'button'} More..
+
